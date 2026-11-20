@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BTC LORD Fashion House</title>
+<style>
+body{margin:0;font-family:Arial;background:#F2F2F2}
+.top{background:#0A1230;color:#D4A017;padding:20px;font-size:30px;font-weight:bold;text-align:center}
+.top span{color:white;font-size:14px;display:block}
+.hero{background:#D4A017;padding:25px;text-align:center}
+.btn{background:#0A1230;color:white;padding:13px 25px;border:none;border-radius:10px;font-size:17px}
+.card{background:white;margin:15px;padding:15px;border-radius:15px}
+.card img{width:100%;border-radius:10px}
+.price{color:green;font-weight:bold;font-size:20px}
+.order{background:#22C55E;color:white;width:100%;padding:13px;border:none;border-radius:10px;font-size:18px;margin-top:8px}
+.dark{background:#0A1230;color:white;padding:20px;border-radius:15px;margin:15px}
+.gold{color:#D4A017}
+.ceo{text-align:center}
+.ceo img{width:150px;height:150px;border-radius:50%;border:4px solid #D4A017}
+input,textarea{width:100%;padding:12px;margin:6px 0;border:1px solid #ccc;border-radius:10px;box-sizing:border-box}
+#ceoOffice{display:none}
+.tabBtn{background:#eee;border:none;padding:10px;margin:3px;border-radius:8px}
+.tabBtn.active{background:#0A1230;color:white}
+.payBox{background:#FFF3CD;border:2px dashed #D4A017;padding:15px;border-radius:10px;text-align:center;margin-top:10px}
+.dash{display:flex;gap:10px}
+.dash div{flex:1;background:#0A1230;color:white;padding:12px;border-radius:10px;text-align:center}
+.dash b{color:#D4A017;font-size:22px}
+.item{border:1px solid #ddd;padding:10px;border-radius:10px;margin:6px 0}
+.del{background:red;color:white;border:none;padding:7px 12px;border-radius:8px}
+.small{font-size:13px;color:#555}
+</style>
+</head>
+<body>
+<div class="top">BTC LORD<span>Fashion House - Orimekpang, Boki LGA | 07043209839</span></div>
+<div class="hero"><h1>WE SEW FINE CLOTHES</h1><p>Senator | Agbada | Kaftan | Native | Suit</p><a href="#shop"><button class="btn">ORDER NOW</button></a></div>
+<div class="card ceo"><img src="ceo.jpg"><h2>MEET OUR CEO</h2><h3>BTC LORD</h3><p>Founder & CEO - BTC LORD Fashion House</p><button class="order" style="background:#0A1230" onclick="openCEO()">🔒 OPEN CEO OFFICE</button></div>
+
+<div id="ceoOffice" class="card" style="border:3px solid #D4A017">
+<h2 style="color:#D4A017">🔒 CEO OFFICE - PRIVATE</h2>
+<div>
+<button class="tabBtn active" onclick="showTab('dash',this)">📊 Dashboard</button>
+<button class="tabBtn" onclick="showTab('orders',this)">🧾 Orders</button>
+<button class="tabBtn" onclick="showTab('apprenticeList',this)">👥 Apprentice</button>
+<button class="tabBtn" onclick="showTab('prices',this)">💰 Prices</button>
+<button class="tabBtn" onclick="showTab('addCloth',this)">➕ Add Cloth</button>
+<button class="tabBtn" onclick="showTab('notes',this)">📝 Notes</button>
+<button class="tabBtn" onclick="showTab('account',this)">🏦 Account</button>
+<button class="tabBtn" onclick="showTab('money',this)">💰 My Money</button>
+<button class="tabBtn" onclick="showTab('customers',this)">👑 My Customers</button>
+<button class="tabBtn" onclick="showTab('passwords',this)">🔑 My Passwords</button>
+<button class="tabBtn" onclick="showTab('unpaid',this)">⚠️ Never Pay</button>
+</div>
+<div id="tab-dash"><div class="dash"><div>Total Income<br><b id="totalIncome">₦0</b></div><div>Orders<br><b id="totalOrders">0</b></div><div>Apprentice<br><b id="totalApp">0</b></div></div><button class="order" onclick="clearAll()">🗑️ CLEAR ALL ORDERS</button></div>
+<div id="tab-orders" style="display:none"><h3>🧾 Customer Orders</h3><div id="ordersList">No order yet.</div></div>
+<div id="tab-apprenticeList" style="display:none"><h3>👥 Apprentice</h3><div id="appList">No apprentice yet.</div></div>
+<div id="tab-prices" style="display:none"><h3>💰 Change Price</h3>Senator <input id="pSenator" type="number" value="30000">Agbada <input id="pAgbada" type="number" value="35000">Kaftan <input id="pKaftan" type="number" value="25000">Studio Promo <input id="pPromo" type="number" value="1500">Studio Normal <input id="pNormal" type="number" value="2000"><button class="order" onclick="savePrices()">SAVE PRICES</button></div>
+<div id="tab-addCloth" style="display:none"><h3>➕ Add New Cloth to Shop</h3><input id="newName" placeholder="Cloth Name e.g. Senator Black"><input id="newPrice" type="number" placeholder="Price e.g. 40000"><input id="newImg" placeholder="Picture name e.g. new.jpg - upload am first"><button class="order" onclick="addCloth()">ADD TO SHOP</button><p class="small">First upload the picture for FILES, rename am, then put the name here.</p></div>
+<div id="tab-notes" style="display:none"><h3>📝 My Private Notes</h3><textarea id="myNotes" rows="5" placeholder="Write secret notes..."></textarea><button class="order" onclick="saveNotes()">SAVE NOTES</button></div>
+<div id="tab-account" style="display:none"><h3>🏦 My Account - Wey Customers Go Pay To</h3>Bank <input id="bankName" value="OPay">Name <input id="accName" value="BTC LORD">Number <input id="accNum" value="07043209839"><button class="order" onclick="saveAccount()">SAVE ACCOUNT</button></div>
+<div id="tab-money" style="display:none"><h3>💰 My Private Money / Savings</h3><textarea id="myMoney" rows="6" placeholder="Example: Today I save ₦50,000, Customer John owe me ₦10,000"></textarea><button class="order" onclick="savePrivate('btc_money','myMoney')">SAVE MY MONEY</button></div>
+<div id="tab-customers" style="display:none"><h3>👑 My Big Customers</h3><textarea id="myCustomers" rows="6" placeholder="Example: Chief Emeka - 080... - Agbada"></textarea><button class="order" onclick="savePrivate('btc_customers','myCustomers')">SAVE CUSTOMERS</button></div>
+<div id="tab-passwords" style="display:none"><h3>🔑 My Private Passwords</h3><textarea id="myPasswords" rows="6" placeholder="Example: OPay PIN, WhatsApp, etc - ONLY YOU GO SEE AM"></textarea><button class="order" onclick="savePrivate('btc_passwords','myPasswords')">SAVE PASSWORDS</button></div>
+<div id="tab-unpaid" style="display:none"><h3>⚠️ People Wey Order But Never Pay</h3><textarea id="myUnpaid" rows="6" placeholder="Example: John - Senator ₦30,000 - Never pay"></textarea><button class="order" onclick="savePrivate('btc_unpaid','myUnpaid')">SAVE UNPAID LIST</button></div>
+<hr><button class="order" onclick="changePass()">🔑 CHANGE MY PASSWORD</button><button class="order" style="background:red" onclick="closeCEO()">CLOSE OFFICE</button>
+</div>
+
+<div class="card"><h2>ABOUT US</h2><p>BTC LORD Fashion House, Orimekpang, Boki LGA. Phone: 07043209839</p></div>
+
+<h2 id="shop" style="padding:0 15px">SHOP - ORDER HERE</h2>
+<div id="shopList">
+<div class="card"><img src="senator.jpg"><h3>1. Senator Wear</h3><p class="price">₦30,000</p><button class="order" onclick="startOrder('Senator Wear',30000)">ORDER SENATOR</button></div>
+<div class="card"><img src="agbada.jpg"><h3>2. Agbada - Royal</h3><p class="price">₦35,000</p><button class="order" onclick="startOrder('Agbada - Royal',35000)">ORDER AGBADA</button></div>
+<div class="card"><img src="kaftan.jpg"><h3>3. Kaftan - Green with Gold</h3><p class="price">₦25,000</p><button class="order" onclick="startOrder('Kaftan',25000)">ORDER KAFTAN</button></div>
+<div class="card"><img src="product4.jpg"><h3>4. New Product 4</h3><p class="price">₦40,000</p><button class="order" onclick="startOrder('New Product 4',40000)">ORDER PRODUCT 4</button></div>
+<div class="card"><img src="product5.jpg"><h3>5. New Product 5</h3><p class="price">₦9,500</p><button class="order" onclick="startOrder('New Product 5',40000)">ORDER PRODUCT 5</button></div>
+<div class="card"><img src="product6.jpg"><h3>6. New Product 6</h3><p class="price">₦40,000</p><button class="order" onclick="startOrder('New Product 6',40000)">ORDER PRODUCT 6</button></div>
+</div>
+
+<div class="dark"><h2 class="gold">PICTURE STUDIO</h2><p>Promo ₦1,500 | Normal ₦2,000</p><input type="file"><button class="order" style="background:#D4A017;color:#0A1230" onclick="startOrder('Picture Studio',1500)">EDIT MY PICTURE - PAY & ORDER</button></div>
+<div class="card"><h2>APPRENTICE - UNLIMITED</h2><input id="appName" placeholder="Your Name"><input id="appPhone" placeholder="Your Phone"><button class="order" onclick="applyApp()">APPLY NOW</button></div>
+<div id="orderModal" class="card" style="display:none;border:3px solid green">
+<h2>✅ ORDER - PAY HERE</h2><p id="orderInfo"></p>
+<div class="payBox"><b id="payBank">OPay - BTC LORD</b><br><h2 id="payAcc">07043209839</h2><p>Pay, then send receipt to WhatsApp: <b>07043209839</b></p></div>
+<input id="custName" placeholder="Your Name"><input id="custPhone" placeholder="Your Phone / WhatsApp">
+<button class="order" onclick="confirmOrder()">I DON PAY - CONFIRM ORDER</button>
+<button class="order" style="background:#ccc;color:black" onclick="document.getElementById('orderModal').style.display='none'">CANCEL</button>
+</div>
+
+<script>
+let account={bank:"OPay",name:"BTC LORD",num:"07043209839"};
+let currentOrder={name:"",price:0};
+let savedAcc=localStorage.getItem('btc_account'); if(savedAcc){account=JSON.parse(savedAcc);}
+function loadPrivate(key,id){let v=localStorage.getItem(key); if(v) document.getElementById(id).value=v;}
+function savePrivate(key,id){localStorage.setItem(key,document.getElementById(id).value);alert("Saved! Only you go see am.");}
+function renderAdmin(){
+ let orders=JSON.parse(localStorage.getItem('btc_orders')||"[]");
+ let apps=JSON.parse(localStorage.getItem('btc_apps')||"[]");
+ let total=0; orders.forEach(o=>total+=Number(o.price||0));
+ document.getElementById('totalIncome').innerText="₦"+total.toLocaleString();
+ document.getElementById('totalOrders').innerText=orders.length;
+ document.getElementById('totalApp').innerText=apps.length;
+ document.getElementById('ordersList').innerHTML=orders.length?orders.map((o,i)=>'<div class="item"><b>'+o.item+'</b> - ₦'+o.price+'<br>'+o.name+' - '+o.phone+'<br><span class="small">'+o.date+'</span><br><button class="del" onclick="delOrder('+i+')">Delete</button></div>').join(''):"No order yet.";
+ document.getElementById('appList').innerHTML=apps.length?apps.map((a,i)=>'<div class="item"><b>'+a.name+'</b><br>'+a.phone+'<br><span class="small">'+a.date+'</span><br><button class="del" onclick="delApp('+i+')">Delete</button></div>').join(''):"No apprentice yet.";
+ document.getElementById('bankName').value=account.bank; document.getElementById('accName').value=account.name; document.getElementById('accNum').value=account.num;
+ loadPrivate('btc_notes','myNotes'); loadPrivate('btc_money','myMoney'); loadPrivate('btc_customers','myCustomers'); loadPrivate('btc_passwords','myPasswords'); loadPrivate('btc_unpaid','myUnpaid');
+ let extra=JSON.parse(localStorage.getItem('btc_extra_cloths')||"[]");
+ let shop=document.getElementById('shopList');
+ let all=[...shop.children]; if(all.length>6){ for(let i=6;i<all.length;i++) all[i].remove(); }
+ extra.forEach(c=>{ let d=document.createElement('div'); d.className='card'; d.innerHTML='<img src="'+c.img+'"><h3>'+c.name+'</h3><p class="price">₦'+Number(c.price).toLocaleString()+'</p><button class="order" onclick="startOrder(\''+c.name.replace(/'/g,"")+'\','+c.price+')">ORDER '+c.name+'</button>'; shop.appendChild(d); });
+}
+function addCloth(){let n=document.getElementById('newName').value, p=document.getElementById('newPrice').value, im=document.getElementById('newImg').value; if(!n||!p||!im){alert("Put name, price and picture name");return;} let ex=JSON.parse(localStorage.getItem('btc_extra_cloths')||"[]"); ex.push({name:n,price:p,img:im}); localStorage.setItem('btc_extra_cloths',JSON.stringify(ex)); alert("Added to Shop!"); document.getElementById('newName').value=""; document.getElementById('newPrice').value=""; document.getElementById('newImg').value=""; renderAdmin();}
+function startOrder(name,price){currentOrder={name:name,price:price};document.getElementById('orderInfo').innerHTML="You select <b>"+name+"</b> - <b>₦"+price+"</b>";document.getElementById('payBank').innerText=account.bank+" - "+account.name;document.getElementById('payAcc').innerText=account.num;document.getElementById('orderModal').style.display='block';window.scrollTo(0,document.getElementById('orderModal').offsetTop);}
+function confirmOrder(){let n=document.getElementById('custName').value, ph=document.getElementById('custPhone').value;if(!n||!ph){alert("Put name and phone");return;}let orders=JSON.parse(localStorage.getItem('btc_orders')||"[]");orders.push({item:currentOrder.name,price:currentOrder.price,name:n,phone:ph,date:new Date().toLocaleString()});localStorage.setItem('btc_orders',JSON.stringify(orders));alert("Order saved! Pay to "+account.bank+" "+account.num+" and send receipt to WhatsApp 07043209839");document.getElementById('orderModal').style.display='none';renderAdmin();}
+function applyApp(){let n=document.getElementById('appName').value, ph=document.getElementById('appPhone').value;if(!n||!ph){alert("Put name and phone");return;}let apps=JSON.parse(localStorage.getItem('btc_apps')||"[]");apps.push({name:n,phone:ph,date:new Date().toLocaleString()});localStorage.setItem('btc_apps',JSON.stringify(apps));alert("Application saved! CEO go call you.");renderAdmin();}
+function delOrder(i){let o=JSON.parse(localStorage.getItem('btc_orders')||"[]");o.splice(i,1);localStorage.setItem('btc_orders',JSON.stringify(o));renderAdmin();}
+function delApp(i){let a=JSON.parse(localStorage.getItem('btc_apps')||"[]");a.splice(i,1);localStorage.setItem('btc_apps',JSON.stringify(a));renderAdmin();}
+function clearAll(){if(confirm("Delete all orders?")){localStorage.setItem('btc_orders',"[]");renderAdmin();}}
+function savePrices(){alert("Prices saved for record.");}
+function saveNotes(){localStorage.setItem('btc_notes',document.getElementById('myNotes').value);alert("Notes saved!");}
+function saveAccount(){account={bank:document.getElementById('bankName').value,name:document.getElementById('accName').value,num:document.getElementById('accNum').value};localStorage.setItem('btc_account',JSON.stringify(account));alert("Account saved!");}
+function showTab(id,btn){['dash','orders','apprenticeList','prices','addCloth','notes','account','money','customers','passwords','unpaid'].forEach(t=>document.getElementById('tab-'+t).style.display='none');document.getElementById('tab-'+id).style.display='block';document.querySelectorAll('.tabBtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function openCEO(){let saved=localStorage.getItem('btc_ceo_pass');if(!saved){let c=prompt("CEO first time: Create SECRET password:");if(!c)return;let cf=prompt("Type am again:");if(c===cf){localStorage.setItem('btc_ceo_pass',c);alert("Password saved.");}else alert("No match.");return;}let p=prompt("Enter CEO Password:");if(p===saved){document.getElementById('ceoOffice').style.display='block';renderAdmin();}else alert("Wrong Password! Only CEO.");}
+function changePass(){let o=prompt("Old password:");if(o===localStorage.getItem('btc_ceo_pass')){let n=prompt("New password:");localStorage.setItem('btc_ceo_pass',n);alert("Changed.");}else alert("Wrong.");}
+function closeCEO(){document.getElementById('ceoOffice').style.display='none';}
+renderAdmin();
+</script>
+</body>
+</html>
